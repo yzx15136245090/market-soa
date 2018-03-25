@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/www.mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.FathertypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Fathertype" >
+    <id column="TypeId" property="typeid" jdbcType="VARCHAR" />
+    <result column="TypeName" property="typename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TypeId, TypeName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fathertype
+    where TypeId = #{typeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from fathertype
+    where TypeId = #{typeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Fathertype" >
+    insert into fathertype (TypeId, TypeName)
+    values (#{typeid,jdbcType=VARCHAR}, #{typename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Fathertype" >
+    insert into fathertype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        TypeId,
+      </if>
+      <if test="typename != null" >
+        TypeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+      <if test="typename != null" >
+        #{typename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Fathertype" >
+    update fathertype
+    <set >
+      <if test="typename != null" >
+        TypeName = #{typename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TypeId = #{typeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Fathertype" >
+    update fathertype
+    set TypeName = #{typename,jdbcType=VARCHAR}
+    where TypeId = #{typeid,jdbcType=VARCHAR}
+  </update>
+    <select id="selectfathertype" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from fathertype
+  </select>
+</mapper>

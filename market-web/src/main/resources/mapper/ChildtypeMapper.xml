@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/www.mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.ChildtypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Childtype" >
+    <id column="ChildTypeId" property="childtypeid" jdbcType="VARCHAR" />
+    <result column="ChildTypeName" property="childtypename" jdbcType="VARCHAR" />
+    <result column="TypeId" property="typeid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ChildTypeId, ChildTypeName, TypeId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from childtype
+    where ChildTypeId = #{childtypeid,jdbcType=VARCHAR}
+  </select>
+  <select id="childSearchGoods" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from childtype
+    where ChildTypeName = #{childtypename,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from childtype
+    where ChildTypeId = #{childtypeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Childtype" >
+    insert into childtype (ChildTypeId, ChildTypeName, TypeId
+      )
+    values (#{childtypeid,jdbcType=VARCHAR}, #{childtypename,jdbcType=VARCHAR}, #{typeid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Childtype" >
+    insert into childtype
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="childtypeid != null" >
+        ChildTypeId,
+      </if>
+      <if test="childtypename != null" >
+        ChildTypeName,
+      </if>
+      <if test="typeid != null" >
+        TypeId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="childtypeid != null" >
+        #{childtypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="childtypename != null" >
+        #{childtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        #{typeid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Childtype" >
+    update childtype
+    <set >
+      <if test="childtypename != null" >
+        ChildTypeName = #{childtypename,jdbcType=VARCHAR},
+      </if>
+      <if test="typeid != null" >
+        TypeId = #{typeid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ChildTypeId = #{childtypeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Childtype" >
+    update childtype
+    set ChildTypeName = #{childtypename,jdbcType=VARCHAR},
+      TypeId = #{typeid,jdbcType=VARCHAR}
+    where ChildTypeId = #{childtypeid,jdbcType=VARCHAR}
+  </update>
+   <select id="selectchildtype" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from childtype
+    where TypeId = #{typeid,jdbcType=VARCHAR}
+  </select>
+</mapper>

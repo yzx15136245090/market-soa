@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.GoodspictureMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Goodspicture" >
+    <id column="GoodsPicture" property="goodspicture" jdbcType="VARCHAR" />
+    <result column="GoodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="PictureUrl" property="pictureurl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GoodsPicture, GoodsId, PictureUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodspicture
+    where GoodsPicture = #{goodspicture,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from goodspicture
+    where GoodsPicture = #{goodspicture,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Goodspicture" >
+    insert into goodspicture (GoodsPicture, GoodsId, PictureUrl
+      )
+    values (#{goodspicture,jdbcType=VARCHAR}, #{goodsid,jdbcType=VARCHAR}, #{pictureurl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Goodspicture" >
+    insert into goodspicture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodspicture != null" >
+        GoodsPicture,
+      </if>
+      <if test="goodsid != null" >
+        GoodsId,
+      </if>
+      <if test="pictureurl != null" >
+        PictureUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodspicture != null" >
+        #{goodspicture,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureurl != null" >
+        #{pictureurl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Goodspicture" >
+    update goodspicture
+    <set >
+      <if test="goodsid != null" >
+        GoodsId = #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureurl != null" >
+        PictureUrl = #{pictureurl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GoodsPicture = #{goodspicture,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Goodspicture" >
+    update goodspicture
+    set GoodsId = #{goodsid,jdbcType=VARCHAR},
+      PictureUrl = #{pictureurl,jdbcType=VARCHAR}
+    where GoodsPicture = #{goodspicture,jdbcType=VARCHAR}
+  </update>
+   <select id="selectByGoodsId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goodspicture
+    where GoodsId = #{goodsid,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.SchoolMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.School" >
+    <id column="SchoolId" property="schoolid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="SchoolName" property="schoolname" jdbcType="VARCHAR" />
+    <result column="College" property="college" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    SchoolId,UserId, SchoolName, College
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from school
+    where SchoolId = #{schoolid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from school
+    where SchoolId = #{schoolid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.School" >
+    insert into school (SchoolId,UserId,SchoolName, College
+      )
+    values (#{schoolid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{schoolname,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.School" >
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolid != null" >
+        SchoolId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="schoolname != null" >
+        SchoolName,
+      </if>
+      <if test="college != null" >
+        College,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolid != null" >
+        #{schoolid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+       #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolname != null" >
+        #{schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.School" >
+    update school
+    <set >
+      <if test="schoolname != null" >
+        SchoolName = #{schoolname,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        UserId=#{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        College = #{college,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SchoolId = #{schoolid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.School" >
+    update school
+    set SchoolName = #{schoolname,jdbcType=VARCHAR},
+      College = #{college,jdbcType=VARCHAR},UserId=#{userid,jdbcType=VARCHAR}
+    where SchoolId = #{schoolid,jdbcType=INTEGER}
+  </update>
+</mapper>

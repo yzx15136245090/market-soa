@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/www.mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.CreditMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Credit" >
+    <id column="CreditId" property="creditid" jdbcType="VARCHAR" />
+    <result column="Action" property="action" jdbcType="VARCHAR" />
+    <result column="CreditChange" property="creditchange" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    CreditId, Action, CreditChange, UserId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from credit
+    where CreditId = #{creditid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from credit
+    where CreditId = #{creditid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Credit" >
+    insert into credit (CreditId, Action, CreditChange, 
+      UserId)
+    values (#{creditid,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{creditchange,jdbcType=INTEGER}, 
+      #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Credit" >
+    insert into credit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="creditid != null" >
+        CreditId,
+      </if>
+      <if test="action != null" >
+        Action,
+      </if>
+      <if test="creditchange != null" >
+        CreditChange,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="creditid != null" >
+        #{creditid,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="creditchange != null" >
+        #{creditchange,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Credit" >
+    update credit
+    <set >
+      <if test="action != null" >
+        Action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="creditchange != null" >
+        CreditChange = #{creditchange,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CreditId = #{creditid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Credit" >
+    update credit
+    set Action = #{action,jdbcType=VARCHAR},
+      CreditChange = #{creditchange,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=VARCHAR}
+    where CreditId = #{creditid,jdbcType=VARCHAR}
+  </update>
+</mapper>

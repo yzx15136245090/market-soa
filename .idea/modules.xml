@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/market-client/market-client.iml" filepath="$PROJECT_DIR$/market-client/market-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/market-soa.iml" filepath="$PROJECT_DIR$/market-soa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/market-web/market-web.iml" filepath="$PROJECT_DIR$/market-web/market-web.iml" />
+    </modules>
+  </component>
+</project>

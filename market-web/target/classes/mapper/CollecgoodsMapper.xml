@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.CollecgoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Collecgoods" >
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="CollectDate" property="collectdate" jdbcType="TIMESTAMP" />
+    <result column="GoodsId" property="goodsid" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="myCollect" resultMap="BaseResultMap" >
+    select 
+    *
+    from collecgoods
+    where  UserId=#{userid,jdbcType=VARCHAR}
+    LIMIT #{startPage}, #{pageSize}
+  </select>
+   <select id="findCollecNumber" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(goodsid)
+    from collecgoods
+    where  UserId=#{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="weatherCollect" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(goodsid)
+    from collecgoods
+    where  UserId=#{userid,jdbcType=VARCHAR} and GoodsId=#{goodsid,jdbcType=VARCHAR}
+  </select>
+  <insert id="insert" parameterType="com.zzti.market.entity.Collecgoods" >
+    insert into collecgoods (UserId, CollectDate, GoodsId
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{collectdate,jdbcType=TIMESTAMP}, #{goodsid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Collecgoods" >
+    insert into collecgoods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="collectdate != null" >
+        CollectDate,
+      </if>
+      <if test="goodsid != null" >
+        GoodsId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="collectdate != null" >
+        #{collectdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

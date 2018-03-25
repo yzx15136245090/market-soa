@@ -1,0 +1,2 @@
+ALTER TABLE USER ADD (IdentCode VARCHAR(10));
+COMMENT ON COLUMN USER.IdentCode IS '手机注册验证码';

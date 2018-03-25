@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.BuymessageMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Buymessage" >
+    <id column="BuymessageId" property="buymessageid" jdbcType="VARCHAR" />
+    <result column="CreatDate" property="creatdate" jdbcType="DATE" />
+    <result column="BuyGoodsName" property="buygoodsname" jdbcType="VARCHAR" />
+    <result column="BuyGoodsDescrip" property="buygoodsdescrip" jdbcType="VARCHAR" />
+    <result column="WantPrice" property="wantprice" jdbcType="INTEGER" />
+    <result column="BuyInDate" property="buyindate" jdbcType="INTEGER" />
+    <result column="WantSite" property="wantsite" jdbcType="VARCHAR" />
+    <result column="BuyStatus" property="buystatus" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    BuymessageId, CreatDate, BuyGoodsName, BuyGoodsDescrip, WantPrice, BuyInDate, WantSite, 
+    BuyStatus, UserId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from buymessage
+    where BuymessageId = #{buymessageid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from buymessage
+    where BuymessageId = #{buymessageid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Buymessage" >
+    insert into buymessage (BuymessageId, CreatDate, BuyGoodsName, 
+      BuyGoodsDescrip, WantPrice, BuyInDate, 
+      WantSite, BuyStatus, UserId
+      )
+    values (#{buymessageid,jdbcType=VARCHAR}, #{creatdate,jdbcType=DATE}, #{buygoodsname,jdbcType=VARCHAR}, 
+      #{buygoodsdescrip,jdbcType=VARCHAR}, #{wantprice,jdbcType=INTEGER}, #{buyindate,jdbcType=INTEGER}, 
+      #{wantsite,jdbcType=VARCHAR}, #{buystatus,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Buymessage" >
+    insert into buymessage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="buymessageid != null" >
+        BuymessageId,
+      </if>
+      <if test="creatdate != null" >
+        CreatDate,
+      </if>
+      <if test="buygoodsname != null" >
+        BuyGoodsName,
+      </if>
+      <if test="buygoodsdescrip != null" >
+        BuyGoodsDescrip,
+      </if>
+      <if test="wantprice != null" >
+        WantPrice,
+      </if>
+      <if test="buyindate != null" >
+        BuyInDate,
+      </if>
+      <if test="wantsite != null" >
+        WantSite,
+      </if>
+      <if test="buystatus != null" >
+        BuyStatus,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="buymessageid != null" >
+        #{buymessageid,jdbcType=VARCHAR},
+      </if>
+      <if test="creatdate != null" >
+        #{creatdate,jdbcType=DATE},
+      </if>
+      <if test="buygoodsname != null" >
+        #{buygoodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="buygoodsdescrip != null" >
+        #{buygoodsdescrip,jdbcType=VARCHAR},
+      </if>
+      <if test="wantprice != null" >
+        #{wantprice,jdbcType=INTEGER},
+      </if>
+      <if test="buyindate != null" >
+        #{buyindate,jdbcType=INTEGER},
+      </if>
+      <if test="wantsite != null" >
+        #{wantsite,jdbcType=VARCHAR},
+      </if>
+      <if test="buystatus != null" >
+        #{buystatus,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Buymessage" >
+    update buymessage
+    <set >
+      <if test="creatdate != null" >
+        CreatDate = #{creatdate,jdbcType=DATE},
+      </if>
+      <if test="buygoodsname != null" >
+        BuyGoodsName = #{buygoodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="buygoodsdescrip != null" >
+        BuyGoodsDescrip = #{buygoodsdescrip,jdbcType=VARCHAR},
+      </if>
+      <if test="wantprice != null" >
+        WantPrice = #{wantprice,jdbcType=INTEGER},
+      </if>
+      <if test="buyindate != null" >
+        BuyInDate = #{buyindate,jdbcType=INTEGER},
+      </if>
+      <if test="wantsite != null" >
+        WantSite = #{wantsite,jdbcType=VARCHAR},
+      </if>
+      <if test="buystatus != null" >
+        BuyStatus = #{buystatus,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BuymessageId = #{buymessageid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Buymessage" >
+    update buymessage
+    set CreatDate = #{creatdate,jdbcType=DATE},
+      BuyGoodsName = #{buygoodsname,jdbcType=VARCHAR},
+      BuyGoodsDescrip = #{buygoodsdescrip,jdbcType=VARCHAR},
+      WantPrice = #{wantprice,jdbcType=INTEGER},
+      BuyInDate = #{buyindate,jdbcType=INTEGER},
+      WantSite = #{wantsite,jdbcType=VARCHAR},
+      BuyStatus = #{buystatus,jdbcType=INTEGER},
+      UserId = #{userid,jdbcType=VARCHAR}
+    where BuymessageId = #{buymessageid,jdbcType=VARCHAR}
+  </update>
+  <select id="allBuymessage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from buymessage
+    where Buystatus=#{buystatus,jdbcType=INTEGER}
+  </select>
+    <select id="findBuymessageByLImit" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from buymessage
+    where Buystatus=#{buystatus,jdbcType=INTEGER}
+    LIMIT #{startPage}, #{pageSize}
+  </select>
+  <select id="findBuymessageNumber" resultType="int" parameterType="int" >
+    select 
+    count(buymessageid)
+    from buymessage
+    where Buystatus= #{buystatus,jdbcType=INTEGER}
+  </select>
+ 
+</mapper>

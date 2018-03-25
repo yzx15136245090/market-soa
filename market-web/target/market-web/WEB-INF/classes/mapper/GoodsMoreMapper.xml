@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.GoodsMoreMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.GoodsMore" >
+    <id column="GoodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="GoodsName" property="goodsname" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="Price" property="price" jdbcType="INTEGER" />
+    <result column="ReateDate" property="reatedate" jdbcType="DATE" />
+    <result column="GoodsType" property="goodstype" jdbcType="VARCHAR" />
+    <result column="Bargain" property="bargain" jdbcType="INTEGER" />
+    <result column="Old" property="old" jdbcType="VARCHAR" />
+    <result column="InDate" property="indate" jdbcType="INTEGER" />
+    <result column="Status" property="status" jdbcType="VARCHAR" />
+    <result column="PublishTimes" property="publishtimes" jdbcType="INTEGER" />
+    <result column="SeeTimes" property="seetimes" jdbcType="INTEGER" />
+    <result column="GoodsChildType" property="goodschildtype" jdbcType="VARCHAR" />
+    <result column="Place" property="place" jdbcType="VARCHAR" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="UserSchool" property="userschool" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="Credit" property="credit" jdbcType="VARCHAR" />
+    <result column="InviteCode" property="invitecode" jdbcType="VARCHAR" />
+    <result column="Power" property="power" jdbcType="VARCHAR" />
+    <result column="Photo" property="photo" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    GoodsId, GoodsName, Description, UserId, Price, ReateDate, GoodsType, Bargain, Old, 
+    InDate, Status, PublishTimes, SeeTimes, GoodsChildType, Place ,
+    UserName, UserSchool, Password, Telphone, QQ, Credit, InviteCode, Power, 
+    Photo
+  </sql>
+  <select id="findGoodsNumber" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(goodsid)
+    from goods
+    where Status= #{status,jdbcType=VARCHAR}
+  </select>
+    <select id="findGoodsMoreByLImit"  >
+    select 
+    *
+    from  goods,user
+    where goods.Status= #{status,jdbcType=VARCHAR} AND goods.userid=user.userid
+    LIMIT #{startPage}, #{pageSize}
+  </select>
+ <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods
+    where GoodsId = #{goodsid,jdbcType=VARCHAR}
+  </select>
+</mapper>

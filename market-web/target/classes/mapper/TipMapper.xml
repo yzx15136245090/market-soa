@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.TipMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Tip" >
+    <id column="TipId" property="tipid" jdbcType="VARCHAR" />
+    <result column="UserId1" property="userid1" jdbcType="VARCHAR" />
+    <result column="UserId2" property="userid2" jdbcType="VARCHAR" />
+    <result column="TipMessage" property="tipmessage" jdbcType="VARCHAR" />
+    <result column="TipTime" property="tiptime" jdbcType="TIMESTAMP" />
+    <result column="TipStatus" property="tipstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TipId, UserId1, UserId2, TipMessage, TipTime, TipStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tip
+    where TipId = #{tipid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tip
+    where TipId = #{tipid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Tip" >
+    insert into tip (TipId, UserId1, UserId2, 
+      TipMessage, TipTime, TipStatus
+      )
+    values (#{tipid,jdbcType=VARCHAR}, #{userid1,jdbcType=VARCHAR}, #{userid2,jdbcType=VARCHAR}, 
+      #{tipmessage,jdbcType=VARCHAR}, #{tiptime,jdbcType=TIMESTAMP}, #{tipstatus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Tip" >
+    insert into tip
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tipid != null" >
+        TipId,
+      </if>
+      <if test="userid1 != null" >
+        UserId1,
+      </if>
+      <if test="userid2 != null" >
+        UserId2,
+      </if>
+      <if test="tipmessage != null" >
+        TipMessage,
+      </if>
+      <if test="tiptime != null" >
+        TipTime,
+      </if>
+      <if test="tipstatus != null" >
+        TipStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tipid != null" >
+        #{tipid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid1 != null" >
+        #{userid1,jdbcType=VARCHAR},
+      </if>
+      <if test="userid2 != null" >
+        #{userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="tipmessage != null" >
+        #{tipmessage,jdbcType=VARCHAR},
+      </if>
+      <if test="tiptime != null" >
+        #{tiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tipstatus != null" >
+        #{tipstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Tip" >
+    update tip
+    <set >
+      <if test="userid1 != null" >
+        UserId1 = #{userid1,jdbcType=VARCHAR},
+      </if>
+      <if test="userid2 != null" >
+        UserId2 = #{userid2,jdbcType=VARCHAR},
+      </if>
+      <if test="tipmessage != null" >
+        TipMessage = #{tipmessage,jdbcType=VARCHAR},
+      </if>
+      <if test="tiptime != null" >
+        TipTime = #{tiptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tipstatus != null" >
+        TipStatus = #{tipstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where TipId = #{tipid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Tip" >
+    update tip
+    set UserId1 = #{userid1,jdbcType=VARCHAR},
+      UserId2 = #{userid2,jdbcType=VARCHAR},
+      TipMessage = #{tipmessage,jdbcType=VARCHAR},
+      TipTime = #{tiptime,jdbcType=TIMESTAMP},
+      TipStatus = #{tipstatus,jdbcType=INTEGER}
+    where TipId = #{tipid,jdbcType=VARCHAR}
+  </update>
+</mapper>

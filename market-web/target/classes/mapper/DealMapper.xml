@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/www.mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.DealMapper" >
+  <resultMap id="BaseResultMap" type="com.zzti.market.entity.Deal" >
+    <result column="GoodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="DealTime" property="dealtime" jdbcType="TIMESTAMP" />
+    <result column="DealDecrease" property="dealdecrease" jdbcType="VARCHAR" />
+    <result column="Score" property="score" jdbcType="INTEGER" />
+    <result column="MoreDealDecrease" property="moredealdecrease" jdbcType="VARCHAR" />
+    <result column="DealStatus" property="dealstatus" jdbcType="INTEGER" />
+    <result column="Koux1" property="koux1" jdbcType="CHAR" />
+    <result column="koux2" property="koux2" jdbcType="CHAR" />
+    <result column="lastlongintime" property="lastlongintime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zzti.market.entity.Deal" >
+    insert into deal (GoodsId, UserId, DealTime, 
+      DealDecrease, Score, MoreDealDecrease, 
+      DealStatus, Koux1, koux2, 
+      lastlongintime)
+    values (#{goodsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{dealtime,jdbcType=TIMESTAMP}, 
+      #{dealdecrease,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, #{moredealdecrease,jdbcType=VARCHAR}, 
+      #{dealstatus,jdbcType=INTEGER}, #{koux1,jdbcType=CHAR}, #{koux2,jdbcType=CHAR}, 
+      #{lastlongintime,jdbcType=TIMESTAMP})
+  </insert>
+   <update id="updateStatus" parameterType="com.zzti.market.entity.Deal" >
+    update deal
+    set 
+   DealStatus = #{dealstatus,jdbcType=INTEGER}
+    where UserId=#{userid,jdbcType=VARCHAR} and GoodsId=#{goodsid,jdbcType=VARCHAR}
+  </update>
+  <select id="dealGoodsByUserId" resultMap="BaseResultMap" >
+    select 
+    *
+    from deal
+    where  UserId=#{userid,jdbcType=VARCHAR} and  DealStatus = #{dealstatus,jdbcType=INTEGER}
+    LIMIT #{startPage}, #{pageSize}
+  </select>
+  <select id="sallOrde" resultMap="BaseResultMap" >
+    select 
+    *
+    from deal
+    where  GoodsId=#{goodsid,jdbcType=VARCHAR} and  DealStatus = #{dealstatus,jdbcType=INTEGER}
+    LIMIT #{startPage}, #{pageSize}
+  </select>
+   <select id="findGoodsByStatus"  resultType="int" parameterType="java.lang.String">
+    select 
+    count(goodsid)
+    from deal
+    where  GoodsId=#{goodsid,jdbcType=VARCHAR} , DealStatus = #{dealstatus,jdbcType=INTEGER}   and  UserId=#{userid,jdbcType=VARCHAR}
+  </select>
+   <select id="findshopCatNumber" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(goodsid)
+    from deal
+    where  UserId=#{userid,jdbcType=VARCHAR}
+  </select>
+   <select id="weatherAdd" resultType="int" parameterType="java.lang.String" >
+    select 
+    count(goodsid)
+    from deal
+    where  UserId=#{userid,jdbcType=VARCHAR} and GoodsId=#{goodsid,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Deal" >
+    insert into deal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        GoodsId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="dealtime != null" >
+        DealTime,
+      </if>
+      <if test="dealdecrease != null" >
+        DealDecrease,
+      </if>
+      <if test="score != null" >
+        Score,
+      </if>
+      <if test="moredealdecrease != null" >
+        MoreDealDecrease,
+      </if>
+      <if test="dealstatus != null" >
+        DealStatus,
+      </if>
+      <if test="koux1 != null" >
+        Koux1,
+      </if>
+      <if test="koux2 != null" >
+        koux2,
+      </if>
+      <if test="lastlongintime != null" >
+        lastlongintime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsid != null" >
+        #{goodsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealdecrease != null" >
+        #{dealdecrease,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="moredealdecrease != null" >
+        #{moredealdecrease,jdbcType=VARCHAR},
+      </if>
+      <if test="dealstatus != null" >
+        #{dealstatus,jdbcType=INTEGER},
+      </if>
+      <if test="koux1 != null" >
+        #{koux1,jdbcType=CHAR},
+      </if>
+      <if test="koux2 != null" >
+        #{koux2,jdbcType=CHAR},
+      </if>
+      <if test="lastlongintime != null" >
+        #{lastlongintime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

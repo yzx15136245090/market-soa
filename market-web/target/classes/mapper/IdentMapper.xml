@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zzti.market.mapper.IdentMapper" >
+ <resultMap id="BaseResultMap" type="com.zzti.market.entity.Ident" >
+    <id column="IdentId" property="identid" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="IdentPhoto" property="identphoto" jdbcType="VARCHAR" />
+    <result column="StudentNum" property="studentnum" jdbcType="VARCHAR" />
+    <result column="IdentStatus" property="identstatus" jdbcType="INTEGER" />
+    <result column="IdentTime" property="identtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="BaseResultMapList" type="com.zzti.market.entity.Ident" >
+    <id column="IdentId" property="identid" jdbcType="VARCHAR" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="IdentPhoto" property="identphoto" jdbcType="VARCHAR" />
+    <result column="StudentNum" property="studentnum" jdbcType="VARCHAR" />
+    <result column="IdentStatus" property="identstatus" jdbcType="INTEGER" />
+    <result column="IdentTime" property="identtime" jdbcType="TIMESTAMP" />
+  
+ <collection property="school" ofType="com.zzti.market.entity.School">
+ <id column="SchoolId" property="schoolid" jdbcType="INTEGER" />
+    <result column="UserId" property="userid" jdbcType="VARCHAR" />
+    <result column="SchoolName" property="schoolname" jdbcType="VARCHAR" />
+    <result column="College" property="college" jdbcType="VARCHAR" />
+ </collection>
+ </resultMap>
+ 
+ <sql id="Base_Column_List" >
+    UserId,IdentPhoto ,StudentNum ,IdentStatus,IdentTime,IdentId 
+     </sql>
+ <select id="selectLimitLengthIs10" resultMap="BaseResultMapList"  >
+    select ident.IdentId, ident.UserId, ident.IdentPhoto, ident.StudentNum, ident.IdentStatus, ident.IdentTime,school.SchoolName,
+    school.College,school.SchoolId
+    from ident right join school on ident.UserId=school.UserId limit #{form},10
+    </select>
+    <!-- where  IdentId = #{identid,jdbcType=VARCHAR} limit #{form},10
+     -->
+     <select id="querycowntall" resultType="int">
+      select count(1) from ident
+  </select>
+     <select id="selectLimitLengthIs101" resultMap="BaseResultMapList"  >
+    select ident.IdentId, ident.UserId, ident.IdentPhoto, ident.StudentNum, ident.IdentStatus, ident.IdentTime,school.SchoolName,
+    school.College,school.SchoolId
+    from ident right join school on ident.UserId=school.UserId
+    where  IdentStatus = #{identstatus,jdbcType=INTEGER} limit #{form},10
+    
+    </select>
+    <!-- where  IdentId = #{identid,jdbcType=VARCHAR} limit #{form},10
+     -->
+     <select id="querycowntall1" resultType="int" parameterType="java.lang.String">
+      select count(1) from ident where  IdentStatus = #{identstatus,jdbcType=INTEGER}
+  </select>
+     
+     
+     <select id="selectLimitLengthIs102" resultMap="BaseResultMapList" >
+    select ident.IdentId, ident.UserId, ident.IdentPhoto, ident.StudentNum, ident.IdentStatus, ident.IdentTime,school.SchoolName,
+    school.College,school.SchoolId
+    from ident right join school on ident.UserId=school.UserId
+    where  StudentNum = #{search} or  UserId = #{search} 
+    or College= #{search} or SchoolName= #{search}
+    limit #{form},10
+    
+    </select>
+    <!-- where  IdentId = #{identid,jdbcType=VARCHAR} limit #{form},10
+     -->
+     <select id="querycownCountall2" resultType="int" parameterType="java.lang.String">
+      select count(1) from ident  where  StudentNum = #{search} or  UserId = #{search} 
+    or College= #{search} or SchoolName= #{search}
+    </select>
+     
+     
+     
+     
+     
+     
+     
+     
+     
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from ident
+    where IdentId = #{identid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from ident
+    where IdentId = #{identid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zzti.market.entity.Ident" >
+    insert into ident (IdentId, UserId, IdentPhoto, 
+      StudentNum, IdentStatus, IdentTime
+      )
+    values (#{identid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{identphoto,jdbcType=VARCHAR}, 
+      #{studentnum,jdbcType=VARCHAR}, #{identstatus,jdbcType=INTEGER}, #{identtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zzti.market.entity.Ident" >
+    insert into ident
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="identid != null" >
+        IdentId,
+      </if>
+      <if test="userid != null" >
+        UserId,
+      </if>
+      <if test="identphoto != null" >
+        IdentPhoto,
+      </if>
+      <if test="studentnum != null" >
+        StudentNum,
+      </if>
+      <if test="identstatus != null" >
+        IdentStatus,
+      </if>
+      <if test="identtime != null" >
+        IdentTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="identid != null" >
+        #{identid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="identphoto != null" >
+        #{identphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="studentnum != null" >
+        #{studentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="identstatus != null" >
+        #{identstatus,jdbcType=INTEGER},
+      </if>
+      <if test="identtime != null" >
+        #{identtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.Ident" >
+    update ident
+    <set >
+      <if test="userid != null" >
+        UserId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="identphoto != null" >
+        IdentPhoto = #{identphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="studentnum != null" >
+        StudentNum = #{studentnum,jdbcType=VARCHAR},
+      </if>
+      <if test="identstatus != null" >
+        IdentStatus = #{identstatus,jdbcType=INTEGER},
+      </if>
+      <if test="identtime != null" >
+        IdentTime = #{identtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where IdentId = #{identid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.Ident" >
+    update ident
+    set UserId = #{userid,jdbcType=VARCHAR},
+      IdentPhoto = #{identphoto,jdbcType=VARCHAR},
+      StudentNum = #{studentnum,jdbcType=VARCHAR},
+      IdentStatus = #{identstatus,jdbcType=INTEGER},
+      IdentTime = #{identtime,jdbcType=TIMESTAMP}
+    where IdentId = #{identid,jdbcType=VARCHAR}
+  </update>
+  
+    
+     <!-- select  * from school right join ident on ident.UserId=school.UserId WHERE ident.UserId=school.UserId and IdentId="1"
+  
+   -->
+</mapper>

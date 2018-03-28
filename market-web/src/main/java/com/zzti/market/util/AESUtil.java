@@ -54,16 +54,18 @@ public class AESUtil {
 	 * @throws Exception
 	 */
 	public static String getSignature(String data, String MD5key){
-		byte[] b={};
+		byte[] b;
 		data = data + "|" + MD5key; // data与key一块签名
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			b = md.digest(data.getBytes("UTF-8")); // md5签名
 		} catch (Exception e) {
 			// 记录请求信息
+			e.printStackTrace();
+			return "md5-Exception";
 		}
 		return Base64.encodeBase64String(b); // base64转码
-	};
+	}
 
 	/**
 	 * AES加密

@@ -4,6 +4,7 @@ package com.zzti.market.dao;
 import com.zzti.market.entity.User;
 import com.zzti.market.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 
@@ -51,7 +52,7 @@ public class UserDao {
      * @param userId 用户名
      * @param password  密码
      */
-    public int loginCheck(String userId,String password){
+    public int loginCheck( @RequestParam("userId")String userId,@RequestParam("password")String password){
         return  userMapper.loginCheck(userId,password);
     }
 

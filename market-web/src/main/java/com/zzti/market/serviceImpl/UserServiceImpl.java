@@ -7,15 +7,11 @@ import com.zzti.market.entity.User;
 import com.zzti.market.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.SessionAttributes;
+
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -23,8 +19,6 @@ public class UserServiceImpl implements UserService{
     private  static final String md5Key="vVwU4bhXdlSjWHMjxpCcbg==";
     @Resource
     private UserDao userDao;
-    @Autowired
-    private HttpSession session;
 
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -57,11 +51,7 @@ public class UserServiceImpl implements UserService{
         }else if(userCount==1){
             int check=userDao.loginCheck(user.getUserId(),user.getPassWord());
             if(check==1) {
-                Map seMap=new HashMap();
-                String  token = AESUtil.getSignature(user.getUserId(),md5Key);
-                session.setAttribute("userMap", seMap);
-                seMap.put("token",token);
-                seMap.put("userId",user.getUserId());
+                String token=AESUtil.getSignature(user.getUserId(),md5Key);
                 rejson.put("statusCode", "1");
                 rejson.put("statusMes", "登录成功！");
                 rejson.put("token",token);
@@ -76,28 +66,6 @@ public class UserServiceImpl implements UserService{
     {
         JSONObject rejson = new JSONObject();
         return  rejson.toString();
-    }
-    public  boolean checklogin(){
-        Map userMap=(Map)session.getAttribute("user");
-        String token=userMap.get("token").toString();
-        String userId=userMap.get("userId").toString();
-        if(!"".equals(token)&&!"".equals(userId))
-        {
-            return  true;
-        }else {
-            return  false;
-        }
-    }
-    public boolean appChecklogin(String token,String userId){
-        Map userMap=(Map)session.getAttribute("user");
-        String mytoken=userMap.get("token").toString();
-        String myuserId=userMap.get("userId").toString();
-        if(mytoken.equals(token)&&myuserId.equals(userId))
-        {
-            return  true;
-        }else {
-            return  false;
-        }
     }
 
 }

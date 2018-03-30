@@ -266,6 +266,12 @@
     from goods
     where Status= #{status,jdbcType=VARCHAR} and GoodsType=#{goodstype,jdbcType=VARCHAR}
   </select>
+  <select id="findGoodsNumberBySearch" resultType="int" parameterType="java.lang.String" >
+    select
+    count(goodsid)
+    from goods
+    where Status= #{status,jdbcType=VARCHAR} and GoodsName like #{goodsname,jdbcType=VARCHAR}
+  </select>
     <select id="findGoodsByLImit" resultMap="BaseResultMap"  >
     select 
     <include refid="Base_Column_List" />

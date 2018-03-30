@@ -40,7 +40,6 @@ public class UserDao {
      * @Date: 10:38 2018/3/17
      * @param:
      */
-
     public int getCountByUserId(String userId){
         return userMapper.getCountByUserId(userId);
     }

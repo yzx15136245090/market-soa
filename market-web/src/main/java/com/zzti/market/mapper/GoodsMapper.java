@@ -21,6 +21,7 @@ public interface GoodsMapper {
     int findGoodsNumber ( String status );
     int findGoodsNumberByUserId ( @Param("status") String status, @Param("userid") String userid );
     int findGoodsNumberByGoodsType ( @Param("status") String status, @Param("goodstype") String goodstype );
+    int findGoodsNumberBySearch( @Param("status") String status, @Param("goodsname")String goodsname);
     //分页
     List<Goods> findGoodsByLImit ( @Param("status") String status, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
     List<Goods> searchGoods ( @Param("status") String status, @Param("goodschildtype") String goodschildtype, @Param("goodsname") String goodsname, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );

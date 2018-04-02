@@ -34,4 +34,6 @@ public interface UserMapper {
      * @param passWord  密码
      */
     int loginCheck( @Param("userId")String userId, @Param("passWord")String passWord);
+
+    User selectByPrimaryKey(String userid);
 }

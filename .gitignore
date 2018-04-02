@@ -1,0 +1,15 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.idea/inspectionProfiles/
+market-client/target/classes/com/zzti/market/enums/
+market-client/target/generated-sources/
+market-web/target/generated-sources/
+/market-web/target/
+/market-client/target/

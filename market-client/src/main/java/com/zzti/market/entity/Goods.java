@@ -5,13 +5,6 @@ import java.util.Date;
 public class Goods {
     private String goodsid;
     private String username;
-    public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
 
 	private String goodsname;
 
@@ -208,6 +201,13 @@ public class Goods {
 	public void setPictureurl(String pictureurl) {
 		this.pictureurl = pictureurl;
 	}
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 	
 }

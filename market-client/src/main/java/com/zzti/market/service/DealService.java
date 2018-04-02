@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public interface DealService {
-	/*int addShopCat ( HttpSession session, String goodsid );
+	int addShopCat ( HttpSession session, String goodsid );
 	int weatherAddShopCat ( HttpSession session, String goodsid );
 	int weatherInBuy ( HttpSession session, String goodsid );
 	
@@ -24,4 +24,4 @@ public interface DealService {
 	
 	List<Goods> SallOrder ( HttpSession session, Integer startPage, Integer pageSize, HttpServletRequest request );
     int sallOrderNum ( HttpSession session, Integer startPage, Integer pageSize, HttpServletRequest request );
-*/}
+}

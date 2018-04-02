@@ -31,7 +31,9 @@ public interface GoodsService {
 	//获取某模糊搜索某种状态下的商品数量
 	int getCountGoodsBySearch ( String status, String goodsname );
 	//int findGoodsNumberBySearch ( String status, String goodsname );
-//发布或下架状态商品
+	//发布或下架商品，更改商品状态
+
+
 //List<GoodsMore> allGoods ( String status, Integer startPage,
 //						   Integer pageSize, HttpServletRequest request );
 

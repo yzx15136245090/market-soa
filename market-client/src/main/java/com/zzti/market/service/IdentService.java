@@ -11,7 +11,7 @@ import com.zzti.market.entity.Ident;
 
 
 public interface IdentService {
-/*@Resource
+@Resource
 	//String InserIdent ( String college, String school, String stuId, String stuName, MultipartFile stuphono, HttpServletRequest request, HttpSession session );
 
 	List<Ident> selectLimitLengthIs10 ( int i );
@@ -30,21 +30,21 @@ public interface IdentService {
 	int updentstud ( String identid, int i );
 	
 	
+//
+//	@Resource
+//   IdentMapper identMapper;
+//	public int insertIdent(Ident ident) {
+//		return identMapper.insert(ident);
+//
+//	}
 	
-	/*@Resource
-   IdentMapper identMapper;
-	public int insertIdent(Ident ident) {
-		return identMapper.insert(ident);
-		
-	}
-	
-	public int insert(){
-		//插入认证
-		//更新user中的school
-		//判断是否成功
-		//成功返回1
-		//失败返回0
-		return 0;
-	}*/
+//	public int insert(){
+//		//插入认证
+//		//更新user中的school
+//		//判断是否成功
+//		//成功返回1
+//		//失败返回0
+//		return 0;
+//	}
 
 }

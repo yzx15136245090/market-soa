@@ -19,11 +19,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version: 1.0
  */
-@Repository
-public class FathertypeDao {
-    @Resource
-    FathertypeMapper fathertypeMapper;
-    public List<Fathertype> getFathertype(){
-        return fathertypeMapper.selectfathertype();
-    }
+
+public interface FathertypeDao extends  FathertypeMapper{
+
 }

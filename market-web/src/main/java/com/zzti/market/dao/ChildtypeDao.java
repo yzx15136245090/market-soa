@@ -20,13 +20,7 @@ import java.util.List;
  * @UpdateRemark:
  * @Version: 1.0
  */
-@Repository
-public class ChildtypeDao {
-    @Resource
-    ChildtypeMapper childtypeMapper;
 
-    public List<Childtype> getChildType(String typeid) {
-        // TODO Auto-generated method stub
-        return childtypeMapper.selectchildtype(typeid);
-    }
+public interface ChildtypeDao extends ChildtypeMapper{
+
 }

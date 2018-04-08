@@ -1,6 +1,7 @@
 package com.zzti.market.dao;
 
 import com.zzti.market.mapper.UserMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @Title:

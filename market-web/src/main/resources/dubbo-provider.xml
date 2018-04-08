@@ -16,7 +16,7 @@
     <dubbo:protocol name="dubbo" port="20880" />
 
     <!-- 用户服务接口 -->
-    <dubbo:service interface="com.zzti.market.service.UserService" ref="userServiceImpl" version="1.1.0"/>
+    <dubbo:service interface="com.zzti.market.service.UserService" ref="userServiceImpl" version="1.1.2"/>
 
 
 

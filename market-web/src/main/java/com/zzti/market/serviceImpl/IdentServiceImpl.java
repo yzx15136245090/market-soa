@@ -1,20 +1,8 @@
 package com.zzti.market.serviceImpl;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import com.zzti.market.entity.Ident;
 import com.zzti.market.entity.School;
+import com.zzti.market.entity.User;
 import com.zzti.market.mapper.IdentMapper;
 import com.zzti.market.mapper.SchoolMapper;
 import com.zzti.market.service.IdentService;
@@ -22,15 +10,26 @@ import com.zzti.market.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 
 @Service
 public class IdentServiceImpl  implements IdentService {
 	@Resource
-	IdentMapper identMapper;
+    IdentMapper identMapper;
 	UserService userService;
 	@Resource
-	SchoolMapper schoolmap;
-	/*@Override
+    SchoolMapper schoolmap;
+	@Override
 	public String InserIdent(String college, String school, String stuId,String stuName,MultipartFile stuphono, HttpServletRequest request,HttpSession session) {
 		User user= (User) session.getAttribute("user");
 		String indpr=UUID.randomUUID().toString().replace("-", "");
@@ -49,7 +48,7 @@ public class IdentServiceImpl  implements IdentService {
 					
 					
 					//向学校列表中插入数据
-					shool.setUserid(user.getUserid());
+					shool.setUserid(user.getUserId());
 					shool.setSchoolname(school);
 					shool.setCollege(college);
 					int b=schoolmap.insert(shool);
@@ -65,10 +64,10 @@ public class IdentServiceImpl  implements IdentService {
                  String p1 = request.getSession().getServletContext().getRealPath("/index");
 				String p2 = p1.substring(0,p1.lastIndexOf("\\"));
 				String path=p2.substring(0,p2.lastIndexOf("\\"))+"\\picture";
-				ident.setUserid(user.getUserid());
+				ident.setUserid(user.getUserId());
 				ident.setStudentnum(stuId);
 				ident.setIdenttime(time);
-				ident.setUserid(user.getUserid());
+				ident.setUserid(user.getUserId());
 				ident.setIdentid(indpr);
 				ident.setIdentstatus(0);
 				int a= identMapper.insert(ident);
@@ -168,5 +167,5 @@ public class IdentServiceImpl  implements IdentService {
 		idt.setIdentstatus(i);
 		return identMapper.updateByPrimaryKey(idt);
 	}
-*/
+
 }

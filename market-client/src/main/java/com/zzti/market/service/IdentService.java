@@ -11,25 +11,25 @@ import com.zzti.market.entity.Ident;
 
 
 public interface IdentService {
-@Resource
+//@Resource
 	//String InserIdent ( String college, String school, String stuId, String stuName, MultipartFile stuphono, HttpServletRequest request, HttpSession session );
 
-	List<Ident> selectLimitLengthIs10 ( int i );
-
-	int querycowntall ();
-
-	List<Ident> selectLimitLengthIs101 ( int i, int j );
-
-	int querycowntall1 ( int i );
-
-	List<Ident> selectLimitLengthIs102 ( int i, String search );
-
-	
-	int querycowntall2 ( String search );
-
-	int updentstud ( String identid, int i );
-	
-	
+//	List<Ident> selectLimitLengthIs10 ( int i );
+//
+//	int querycowntall ();
+//
+//	List<Ident> selectLimitLengthIs101 ( int i, int j );
+//
+//	int querycowntall1 ( int i );
+//
+//	List<Ident> selectLimitLengthIs102 ( int i, String search );
+//
+//
+//	int querycowntall2 ( String search );
+//
+//	int updentstud ( String identid, int i );
+//
+//
 //
 //	@Resource
 //   IdentMapper identMapper;

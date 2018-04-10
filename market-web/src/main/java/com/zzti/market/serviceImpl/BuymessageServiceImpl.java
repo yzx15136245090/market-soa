@@ -2,6 +2,7 @@ package com.zzti.market.serviceImpl;
 
 
 import com.zzti.market.entity.Buymessage;
+import com.zzti.market.entity.Result;
 import com.zzti.market.entity.User;
 import com.zzti.market.mapper.BuymessageMapper;
 import com.zzti.market.mapper.UserMapper;

@@ -1,8 +1,9 @@
 package com.zzti.market.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Buymessage {
+public class Buymessage implements Serializable {
     private String buymessageid;
 
     private Date creatdate;

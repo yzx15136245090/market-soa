@@ -1,8 +1,9 @@
 package com.zzti.market.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class GoodsMore {
+public class GoodsMore implements Serializable {
 		private String goodsid;
 
 	    private String goodsname;

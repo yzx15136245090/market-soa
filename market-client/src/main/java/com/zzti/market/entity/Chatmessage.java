@@ -1,8 +1,9 @@
 package com.zzti.market.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Chatmessage {
+public class Chatmessage implements Serializable {
     private String chatid;
 
     private String userid1;

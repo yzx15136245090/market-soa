@@ -1,8 +1,9 @@
 package com.zzti.market.entity;
 //收藏商品
+import java.io.Serializable;
 import java.util.Date;
 
-public class Collecgoods {
+public class Collecgoods implements Serializable {
     private String userid;
 
     private Date collectdate;

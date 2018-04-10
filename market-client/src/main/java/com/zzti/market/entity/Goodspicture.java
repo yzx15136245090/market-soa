@@ -1,6 +1,8 @@
 package com.zzti.market.entity;
 
-public class Goodspicture {
+import java.io.Serializable;
+
+public class Goodspicture implements Serializable {
     private String goodspicture;
     private String pictureurl;
     private String goodsid;

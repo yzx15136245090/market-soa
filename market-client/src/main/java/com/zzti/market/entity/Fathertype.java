@@ -1,6 +1,9 @@
 package com.zzti.market.entity;
+
+import java.io.Serializable;
+
 //父类
-public class Fathertype {
+public class Fathertype implements Serializable{
     private String typeid;
 
     private String typename;

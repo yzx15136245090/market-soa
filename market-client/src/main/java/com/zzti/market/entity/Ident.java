@@ -1,8 +1,9 @@
 package com.zzti.market.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Ident {
+public class Ident implements Serializable {
     private String identid;
 
     private String userid;

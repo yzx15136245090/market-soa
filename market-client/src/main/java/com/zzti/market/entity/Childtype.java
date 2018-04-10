@@ -1,6 +1,9 @@
 package com.zzti.market.entity;
+
+import java.io.Serializable;
+
 //子类
-public class Childtype {
+public class Childtype implements Serializable {
     private String childtypeid;
 
     private String childtypename;

@@ -1,6 +1,9 @@
 package com.zzti.market.entity;
+
+import java.io.Serializable;
+
 //积分规则
-public class Credit {
+public class Credit implements Serializable {
     private String creditid;
 
     private String action;

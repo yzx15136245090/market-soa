@@ -1,8 +1,9 @@
 package com.zzti.market.entity;
 //交易记录
+import java.io.Serializable;
 import java.util.Date;
 
-public class Deal {
+public class Deal implements Serializable {
     private String goodsid;
 
     private String userid;

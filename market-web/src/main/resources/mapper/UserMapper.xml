@@ -2,14 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zzti.market.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.zzti.market.entity.User">
-        <id column="UserId" property="userid" jdbcType="VARCHAR"/>
-        <result column="UserName" property="username" jdbcType="VARCHAR"/>
-        <result column="UserSchool" property="userschool" jdbcType="VARCHAR"/>
-        <result column="Password" property="password" jdbcType="VARCHAR"/>
+        <id column="UserId" property="userId" jdbcType="VARCHAR"/>
+        <result column="UserName" property="userName" jdbcType="VARCHAR"/>
+        <result column="UserSchool" property="userSchool" jdbcType="VARCHAR"/>
+        <result column="Password" property="passWord" jdbcType="VARCHAR"/>
         <result column="Telphone" property="telphone" jdbcType="VARCHAR"/>
         <result column="Email" property="email" jdbcType="VARCHAR"/>
         <result column="Credit" property="credit" jdbcType="VARCHAR"/>
-        <result column="InviteCode" property="invitecode" jdbcType="VARCHAR"/>
+        <result column="InviteCode" property="inviteCode" jdbcType="VARCHAR"/>
         <result column="Power" property="power" jdbcType="VARCHAR"/>
         <result column="Photo" property="photo" jdbcType="VARCHAR"/>
     </resultMap>
@@ -21,7 +21,7 @@
         select
         <include refid="Base_Column_List"/>
         from user
-        where UserId = #{userid,jdbcType=VARCHAR}
+        where UserId = #{userId,jdbcType=VARCHAR}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user
@@ -29,18 +29,52 @@
   </delete>
     <update id="updateByPrimaryKey" parameterType="com.zzti.market.entity.User">
     update user
-    set UserName = #{username,jdbcType=VARCHAR},
-      UserSchool = #{userschool,jdbcType=VARCHAR},
-      Password = #{password,jdbcType=VARCHAR},
+    set UserName = #{userName,jdbcType=VARCHAR},
+      UserSchool = #{userSchool,jdbcType=VARCHAR},
+      Password = #{passWord,jdbcType=VARCHAR},
       Telphone = #{telphone,jdbcType=VARCHAR},
       Email = #{email,jdbcType=VARCHAR},
       Credit = #{credit,jdbcType=VARCHAR},
-      InviteCode = #{invitecode,jdbcType=VARCHAR},
+      InviteCode = #{inviteCode,jdbcType=VARCHAR},
       Power = #{power,jdbcType=VARCHAR},
       Photo = #{photo,jdbcType=VARCHAR},
       
-    where UserId = #{userid,jdbcType=VARCHAR}
+    where UserId = #{userId,jdbcType=VARCHAR}
   </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.zzti.market.entity.User" >
+        update user
+        <set >
+            <if test="userName != null" >
+                UserName = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userSchool != null" >
+                UserSchool = #{userSchool,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null" >
+                Password = #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="telphone != null" >
+                Telphone = #{telphone,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null" >
+                Email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="credit != null" >
+                Credit = #{credit,jdbcType=VARCHAR},
+            </if>
+            <if test="inviteCode != null" >
+                InviteCode = #{inviteCode,jdbcType=VARCHAR},
+            </if>
+            <if test="power != null" >
+                Power = #{power,jdbcType=VARCHAR},
+            </if>
+            <if test="photo != null" >
+                Photo = #{photo,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where UserId = #{userId,jdbcType=VARCHAR}
+    </update>
     <select id="queryUserInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
   select UserId, UserName, password ,telphone,email,credit,invitecode,power,photo from user where UserName=#{username}
   </select>
@@ -52,16 +86,16 @@
   select UserId, UserName, password ,telphone,email,credit,invitecode,power,photo from user where UserId = #{UserId}
   </select>
     <update id="updateUser" parameterType="com.zzti.market.entity.User">
-    update user set  UserName = #{username},
-      UserSchool = #{userschool},
-      Password = #{password},
+    update user set  UserName = #{userName},
+      UserSchool = #{userSchool},
+      Password = #{passWord},
       Telphone = #{telphone},
       Email = #{email},
       Credit = #{credit},
-      InviteCode = #{invitecode},
+      InviteCode = #{inviteCode},
       Power = #{power},
       Photo = #{photo},
-       where UserId=#{userid}
+       where UserId=#{userId}
   </update>
 
     <select id="findUserById" parameterType="String" resultMap="BaseResultMap">

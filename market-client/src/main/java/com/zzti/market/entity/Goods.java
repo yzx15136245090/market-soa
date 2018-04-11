@@ -63,9 +63,6 @@ public class Goods implements Serializable {
 		this.picurl3 = picurl3;
 	}
 
-	
-
-
 
 	public String getRequesturl() {
 		return requesturl;

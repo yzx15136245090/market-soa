@@ -9,6 +9,7 @@ import com.zzti.market.entity.Childtype;
 import com.zzti.market.entity.Fathertype;
 import com.zzti.market.entity.Goods;
 import com.zzti.market.entity.GoodsMore;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface GoodsService {
 	//发布商品
@@ -32,7 +33,18 @@ public interface GoodsService {
 	int getCountGoodsBySearch ( String status, String goodsname );
 	//int findGoodsNumberBySearch ( String status, String goodsname );
 	//发布或下架商品，更改商品状态
-
+	void releaseGoods(String userId,
+					  String goodsname,
+					  String goodstype,
+					  String goodschildtype,
+					  String description,
+					  String price,
+					  Integer bargain,
+					  Integer old,
+					  Integer  inDate,
+					  String place,
+					  MultipartFile[] cms,
+					  HttpServletRequest request);
 
 //List<GoodsMore> allGoods ( String status, Integer startPage,
 //						   Integer pageSize, HttpServletRequest request );

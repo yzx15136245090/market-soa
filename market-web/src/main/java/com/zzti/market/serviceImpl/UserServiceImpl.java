@@ -5,8 +5,10 @@ import net.sf.json.JSONObject;
 import com.zzti.market.dao.UserDao;
 import com.zzti.market.entity.User;
 import com.zzti.market.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 
@@ -19,6 +21,8 @@ public class UserServiceImpl implements UserService{
     private  static final String md5Key="vVwU4bhXdlSjWHMjxpCcbg==";
     @Resource
     private UserDao userDao;
+
+    private  User user;
 
     private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -62,10 +66,32 @@ public class UserServiceImpl implements UserService{
         }
         return rejson.toString();
     }
-    public String putUserInfo(User user)
-    {
-        JSONObject rejson = new JSONObject();
-        return  rejson.toString();
+
+    @Override
+    public User getUserInfo(String userId) {
+        return userDao.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public int updateUserInfo(String userId,
+                              String userName,
+                              String userSchool,
+                              String telphone,
+                              String email) {
+        user=new User();
+        user.setUserId(userId);
+        user.setUserName(userName);
+        if(StringUtils.isNotEmpty(userSchool)) {
+            user.setUserSchool(userSchool);
+        }
+        user.setTelphone(telphone);
+        user.setEmail(email);
+        try {
+            return userDao.updateByPrimaryKeySelective(user);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("updateUserInfo Exception");
+        }
+
     }
 
 }

@@ -35,5 +35,7 @@ public interface UserMapper {
      */
     int loginCheck( @Param("userId")String userId, @Param("passWord")String passWord);
 
-    User selectByPrimaryKey(String userid);
+    User selectByPrimaryKey(@Param("userId")String userId);
+
+    int updateByPrimaryKeySelective(User user);
 }

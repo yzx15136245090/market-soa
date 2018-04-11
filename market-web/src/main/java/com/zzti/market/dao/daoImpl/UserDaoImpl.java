@@ -4,6 +4,7 @@ package com.zzti.market.dao.daoImpl;
 import com.zzti.market.dao.UserDao;
 import com.zzti.market.entity.User;
 import com.zzti.market.mapper.UserMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -55,8 +56,13 @@ public class UserDaoImpl implements UserDao{
     public int loginCheck( @RequestParam("userId")String userId,@RequestParam("password")String password){
         return  userMapper.loginCheck(userId,password);
     }
-    public User selectByPrimaryKey(String userid){
-        return  userMapper.selectByPrimaryKey(userid);
+    public User selectByPrimaryKey(@Param("userId")String userId){
+        return  userMapper.selectByPrimaryKey(userId);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(User user) {
+        return userMapper.updateByPrimaryKeySelective(user);
     }
 
 }

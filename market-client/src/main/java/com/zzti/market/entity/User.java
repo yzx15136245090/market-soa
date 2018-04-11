@@ -25,7 +25,6 @@ public class User implements Serializable {
 
     private String photo;
 
-    private String identCode;
 
     public String getUserId () {
         return userId;
@@ -107,11 +106,4 @@ public class User implements Serializable {
         this.photo = photo;
     }
 
-    public String getIdentCode () {
-        return identCode;
-    }
-
-    public void setIdentCode ( String identCode ) {
-        this.identCode = identCode;
-    }
 }

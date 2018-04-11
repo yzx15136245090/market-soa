@@ -2,9 +2,12 @@ package com.zzti.market.serviceImpl;
 
 
 import com.zzti.market.dao.FathertypeDao;
+import com.zzti.market.dao.GoodspictureDao;
 import com.zzti.market.entity.*;
 import com.zzti.market.mapper.*;
 import com.zzti.market.service.GoodsService;
+import org.apache.commons.lang.StringUtils;
+import org.aspectj.util.FileUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,24 +23,13 @@ import java.util.UUID;
 @Service
 public class GoodsServiceImpl implements GoodsService {
 	
+    private Goods goods;
+	private Goodspicture goodspicture;
+	@Resource
+	GoodspictureDao goodspictureDao;
 
-	Goodspicture goodspicture;
-	@Resource
-	CollecgoodsMapper collecgoodsMapper;
-	@Resource
-	DealMapper dealMapper;
-	@Resource
-	GoodsMapper goodsMapper;
-	@Resource
-	GoodsMoreMapper goodsMoreMapper;
-	@Resource
-	GoodspictureMapper goodspictureMapper;
-	@Resource
-	FathertypeMapper fathertypeMapper;
 	@Resource
 	ChildtypeMapper childtypeMapper;
-	@Resource
-	UserMapper userMapper;
 	@Resource
 	FathertypeDao fathertypeDao;
 
@@ -122,7 +114,61 @@ public class GoodsServiceImpl implements GoodsService {
 	public int getCountGoodsBySearch(String status, String goodsname) {
 		return 0;
 	}
-
+	@Override
+	public 	void releaseGoods(String userId,
+								String goodsname,
+								String goodstype,
+								String goodschildtype,
+								String description,
+								String price,
+								Integer bargain,
+								Integer old,
+								Integer  inDate,
+								String place,
+								MultipartFile[] cms,
+								HttpServletRequest request){
+		String gid = UUID.randomUUID().toString().replace("-", "");
+		goods=new Goods();
+		goods.setGoodsid(gid);
+		goods.setGoodsname(goodsname);
+		goods.setGoodstype(goodstype);
+		goods.setGoodschildtype(goodschildtype);
+		goods.setDescription(description);
+		goods.setPrice(Integer.valueOf(price));
+		goods.setBargain(bargain);
+		goods.setOld(String.valueOf(old));
+		goods.setIndate(inDate);
+		goods.setPlace(place);
+		for(int i=0;i<cms.length;i++){
+			if(cms[i].getSize() !=0){
+				//保存图片并且保存到数据库
+				goodspicture=new Goodspicture();
+				String goodspic=UUID.randomUUID().toString().replace("-", "");
+				goodspicture.setGoodspicture(goodspic);
+				String pname=(cms[i].getOriginalFilename()).substring((cms[i].getOriginalFilename()).lastIndexOf("."));
+				String picname=goodspic+pname;
+				StringBuffer sa=request.getRequestURL();
+				String sa2=sa.substring(0,sa.lastIndexOf("/"));
+				String picurl=sa2.substring(0,sa2.lastIndexOf("/"));
+				goods.setRequesturl(picurl+"/picture");
+				goodspicture.setPictureurl(picname);
+				String ddd=File.separator;
+				String p1 = request.getSession().getServletContext().getRealPath(ddd);
+				String path=p1.substring(0,p1.lastIndexOf(ddd))+ddd+"picture";
+				try {
+					cms[i].transferTo(new File(path+ddd+picname));
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				goodspicture.setGoodsid(gid);
+				goodspictureDao.insert(goodspicture);
+			}
+		}
+	}
 
 //	public List<GoodsMore> allGoods(String status, Integer startPage,
 //			Integer pageSize,HttpServletRequest request) {

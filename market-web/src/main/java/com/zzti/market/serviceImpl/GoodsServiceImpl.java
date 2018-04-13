@@ -2,6 +2,7 @@ package com.zzti.market.serviceImpl;
 
 
 import com.zzti.market.dao.FathertypeDao;
+import com.zzti.market.dao.GoodsDao;
 import com.zzti.market.dao.GoodspictureDao;
 import com.zzti.market.entity.*;
 import com.zzti.market.mapper.*;
@@ -27,11 +28,12 @@ public class GoodsServiceImpl implements GoodsService {
 	private Goodspicture goodspicture;
 	@Resource
 	GoodspictureDao goodspictureDao;
-
 	@Resource
 	ChildtypeMapper childtypeMapper;
 	@Resource
 	FathertypeDao fathertypeDao;
+	@Resource
+	GoodsDao goodsDao;
 
 //	public void ReleaseGoods(MultipartFile[] cms, Goods goods, HttpServletRequest request, HttpSession session) {
 //
@@ -139,6 +141,7 @@ public class GoodsServiceImpl implements GoodsService {
 		goods.setOld(String.valueOf(old));
 		goods.setIndate(inDate);
 		goods.setPlace(place);
+		goodsDao.insertGoods(goods);
 		for(int i=0;i<cms.length;i++){
 			if(cms[i].getSize() !=0){
 				//保存图片并且保存到数据库

@@ -43,8 +43,8 @@ public interface GoodsService {
 					  Integer old,
 					  Integer  inDate,
 					  String place,
-					  MultipartFile[] cms,
-					  HttpServletRequest request);
+					  List<String> goodspicList,
+					  List<String> picnameList);
 
 //List<GoodsMore> allGoods ( String status, Integer startPage,
 //						   Integer pageSize, HttpServletRequest request );

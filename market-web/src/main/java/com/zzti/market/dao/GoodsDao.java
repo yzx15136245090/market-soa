@@ -23,6 +23,6 @@ public class GoodsDao {
     @Resource
     GoodsMapper goodsMapper;
     public int insertGoods ( Goods record ){
-        return  goodsMapper.insertSelective(record);
+        return  goodsMapper.insert(record);
     }
 }

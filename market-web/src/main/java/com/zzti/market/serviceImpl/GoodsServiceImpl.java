@@ -127,12 +127,14 @@ public class GoodsServiceImpl implements GoodsService {
 								Integer old,
 								Integer  inDate,
 								String place,
-								MultipartFile[] cms,
-								HttpServletRequest request){
+								List<String> goodspicList,
+								List<String> picnameList){
 		String gid = UUID.randomUUID().toString().replace("-", "");
 		goods=new Goods();
 		goods.setGoodsid(gid);
 		goods.setGoodsname(goodsname);
+		goods.setUserid(userId);
+		goods.setReatedate(new Date());
 		goods.setGoodstype(goodstype);
 		goods.setGoodschildtype(goodschildtype);
 		goods.setDescription(description);
@@ -141,37 +143,18 @@ public class GoodsServiceImpl implements GoodsService {
 		goods.setOld(String.valueOf(old));
 		goods.setIndate(inDate);
 		goods.setPlace(place);
+		goods.setSeetimes(0);
+		goods.setPublishtimes(1);
 		goodsDao.insertGoods(goods);
-		for(int i=0;i<cms.length;i++){
-			if(cms[i].getSize() !=0){
+		for(int i=0;i<goodspicList.size();i++){
 				//保存图片并且保存到数据库
 				goodspicture=new Goodspicture();
-				String goodspic=UUID.randomUUID().toString().replace("-", "");
-				goodspicture.setGoodspicture(goodspic);
-				String pname=(cms[i].getOriginalFilename()).substring((cms[i].getOriginalFilename()).lastIndexOf("."));
-				String picname=goodspic+pname;
-				StringBuffer sa=request.getRequestURL();
-				String sa2=sa.substring(0,sa.lastIndexOf("/"));
-				String picurl=sa2.substring(0,sa2.lastIndexOf("/"));
-				goods.setRequesturl(picurl+"/picture");
-				goodspicture.setPictureurl(picname);
-				String ddd=File.separator;
-				String p1 = request.getSession().getServletContext().getRealPath(ddd);
-				String path=p1.substring(0,p1.lastIndexOf(ddd))+ddd+"picture";
-				try {
-					cms[i].transferTo(new File(path+ddd+picname));
-				} catch (IllegalStateException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				goodspicture.setGoodspicture(goodspicList.get(i));
+				goodspicture.setPictureurl(picnameList.get(i));
 				goodspicture.setGoodsid(gid);
 				goodspictureDao.insert(goodspicture);
 			}
 		}
-	}
 
 //	public List<GoodsMore> allGoods(String status, Integer startPage,
 //			Integer pageSize,HttpServletRequest request) {
@@ -319,9 +302,6 @@ public class GoodsServiceImpl implements GoodsService {
 //		return 0;
 //	}
 
-	
-	
-	
 	
 
 

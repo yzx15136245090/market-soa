@@ -5,6 +5,7 @@ import com.zzti.market.mapper.GoodspictureMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Title:
@@ -25,5 +26,9 @@ public class GoodspictureDao {
 
     public  int insert ( Goodspicture record ){
         return  goodspictureMapper.insert(record);
+    }
+
+    public List<Goodspicture> selectByGoodsId(String goodsid){
+        return  goodspictureMapper.selectByGoodsId(goodsid);
     }
 }

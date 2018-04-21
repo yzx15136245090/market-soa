@@ -9,6 +9,7 @@ import com.zzti.market.entity.Childtype;
 import com.zzti.market.entity.Fathertype;
 import com.zzti.market.entity.Goods;
 import com.zzti.market.entity.GoodsMore;
+import com.zzti.market.result.GoodsResult;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface GoodsService {
@@ -19,19 +20,12 @@ public interface GoodsService {
 	//获取子类名称
 	List<Childtype> childtype ( String typeid );
 	//获取某种状态下的商品数量
-	int getCountGoods (String status);
-	//int findGoodsNumber (String status);
+	int getCountGoods (String name,
+					   String type,
+					   String userId,
+					   String status);
 
-	//获取某用户某种状态下的商品数量
-	int getCountGoodsByUserId (String status,String userId);
-	//int findGoodsNumberByUserId ( String status, String userid );
-	//获取某类别某种状态下的商品数量
-	int getCountGoodsByGoodsType ( String status, String goodstype );
-	//int findGoodsNumberByGoodsType ( String status, String goodstype );
 
-	//获取某模糊搜索某种状态下的商品数量
-	int getCountGoodsBySearch ( String status, String goodsname );
-	//int findGoodsNumberBySearch ( String status, String goodsname );
 	//发布或下架商品，更改商品状态
 	void releaseGoods(String userId,
 					  String goodsname,
@@ -45,6 +39,17 @@ public interface GoodsService {
 					  String place,
 					  List<String> goodspicList,
 					  List<String> picnameList);
+
+
+	List<GoodsResult> getGoodsListPage(Integer startPage, Integer pageSize,
+									   String name,
+									   String type,
+									   String userId,
+									   String status);
+
+	GoodsResult GoodsToResult(Goods goods);
+
+	List<GoodsResult> GoodsToResultList(List<Goods> goodsList);
 
 //List<GoodsMore> allGoods ( String status, Integer startPage,
 //						   Integer pageSize, HttpServletRequest request );

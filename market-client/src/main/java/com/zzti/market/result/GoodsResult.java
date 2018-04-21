@@ -1,12 +1,25 @@
-package com.zzti.market.entity;
+package com.zzti.market.result;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Goods implements Serializable {
+/**
+ * @Title:
+ * @Package: com.zzti.market.result
+ * @ClassName: GoodsResult
+ * @Description:
+ * @Author: zhixiang.yang
+ * @CreateDate: 2018/4/19 17:56
+ * @UpdateUser: zhixiang.yang
+ * @UpdateDate: 2018/4/19 17:56
+ * @UpdateRemark:
+ * @Version: 1.0
+ */
+public class GoodsResult implements Serializable{
+
     private String goodsid;
 
-	private String goodsname;
+    private String goodsname;
 
     private String description;
 
@@ -34,12 +47,18 @@ public class Goods implements Serializable {
 
     private String place;
 
-	public String getGoodsid() {
+    private String username;
+
+    private String credit;
+
+    private Object goodspicture;
+
+    public String getGoodsid() {
         return goodsid;
     }
 
     public void setGoodsid(String goodsid) {
-        this.goodsid = goodsid == null ? null : goodsid.trim();
+        this.goodsid = goodsid;
     }
 
     public String getGoodsname() {
@@ -47,7 +66,7 @@ public class Goods implements Serializable {
     }
 
     public void setGoodsname(String goodsname) {
-        this.goodsname = goodsname == null ? null : goodsname.trim();
+        this.goodsname = goodsname;
     }
 
     public String getDescription() {
@@ -55,7 +74,7 @@ public class Goods implements Serializable {
     }
 
     public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
+        this.description = description;
     }
 
     public String getUserid() {
@@ -63,7 +82,7 @@ public class Goods implements Serializable {
     }
 
     public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+        this.userid = userid;
     }
 
     public Integer getPrice() {
@@ -87,7 +106,7 @@ public class Goods implements Serializable {
     }
 
     public void setGoodstype(String goodstype) {
-        this.goodstype = goodstype == null ? null : goodstype.trim();
+        this.goodstype = goodstype;
     }
 
     public Integer getBargain() {
@@ -103,7 +122,7 @@ public class Goods implements Serializable {
     }
 
     public void setOld(String old) {
-        this.old = old == null ? null : old.trim();
+        this.old = old;
     }
 
     public Integer getIndate() {
@@ -119,7 +138,7 @@ public class Goods implements Serializable {
     }
 
     public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+        this.status = status;
     }
 
     public Integer getPublishtimes() {
@@ -143,7 +162,7 @@ public class Goods implements Serializable {
     }
 
     public void setGoodschildtype(String goodschildtype) {
-        this.goodschildtype = goodschildtype == null ? null : goodschildtype.trim();
+        this.goodschildtype = goodschildtype;
     }
 
     public String getPlace() {
@@ -151,8 +170,30 @@ public class Goods implements Serializable {
     }
 
     public void setPlace(String place) {
-        this.place = place == null ? null : place.trim();
+        this.place = place;
     }
 
-	
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit;
+    }
+
+    public Object getGoodspicture() {
+        return goodspicture;
+    }
+
+    public void setGoodspicture(Object goodspicture) {
+        this.goodspicture = goodspicture;
+    }
 }

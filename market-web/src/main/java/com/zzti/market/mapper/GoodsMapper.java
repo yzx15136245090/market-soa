@@ -24,7 +24,7 @@ public interface GoodsMapper {
     int findGoodsNumberBySearch( @Param("status") String status, @Param("goodsname")String goodsname);
     //分页
     List<Goods> findGoodsByLImit ( @Param("status") String status, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
-    List<Goods> searchGoods ( @Param("status") String status, @Param("goodschildtype") String goodschildtype, @Param("goodsname") String goodsname, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
-    int searchGoodsNumber ( @Param("status") String status, @Param("goodschildtype") String goodschildtype, @Param("goodsname") String goodsname );
+    List<Goods> searchGoods ( @Param("status") String status, @Param("goodsname") String goodsname, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
+    int searchGoodsNumber ( @Param("status") String status,  @Param("goodsname") String goodsname );
 
 }

@@ -32,7 +32,7 @@
     select 
     <include refid="Base_Column_List" />
     from goods
-    where (GoodsName like  CONCAT(CONCAT('%', #{goodsname}), '%') or GoodsChildType=#{goodschildtype,jdbcType=VARCHAR}) and Status= #{status,jdbcType=VARCHAR}
+    where GoodsName like  "%"#{goodsname}"%" and Status= #{status,jdbcType=VARCHAR}
     LIMIT #{startPage}, #{pageSize}
   </select>
   <select id="selectByUser" resultMap="BaseResultMap" >
@@ -252,7 +252,7 @@
     select 
     count(goodsid)
     from goods
-    where (GoodsName like '%${goodsname}%' or GoodsChildType=#{goodschildtype,jdbcType=VARCHAR}) and Status= #{status,jdbcType=VARCHAR}
+    where GoodsName like '%${goodsname}%' and Status= #{status,jdbcType=VARCHAR}
   </select>
    <select id="findGoodsNumberByUserId" resultType="int" parameterType="java.lang.String" >
     select 

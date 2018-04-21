@@ -1,4 +1,4 @@
-package com.zzti.market.entity;
+package com.zzti.market.result;
 
 import java.io.Serializable;
 

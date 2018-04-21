@@ -1,22 +1,23 @@
 package com.zzti.market.serviceImpl;
 
 
+import com.alibaba.dubbo.common.utils.CollectionUtils;
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.zzti.market.dao.FathertypeDao;
 import com.zzti.market.dao.GoodsDao;
 import com.zzti.market.dao.GoodspictureDao;
+import com.zzti.market.dao.UserDao;
 import com.zzti.market.entity.*;
+import com.zzti.market.enums.CommonStatus;
 import com.zzti.market.mapper.*;
+import com.zzti.market.result.GoodsResult;
 import com.zzti.market.service.GoodsService;
-import org.apache.commons.lang.StringUtils;
-import org.aspectj.util.FileUtil;
+import org.springframework.beans.BeanUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -35,58 +36,14 @@ public class GoodsServiceImpl implements GoodsService {
 	@Resource
 	GoodsDao goodsDao;
 
-//	public void ReleaseGoods(MultipartFile[] cms, Goods goods, HttpServletRequest request, HttpSession session) {
-//
-//		//插入商品信息
-//		//session.setAttribute(user, value);
-//		String gid = UUID.randomUUID().toString().replace("-", "");
-//
-//		User user=(User) session.getAttribute("user");
-//		goods.setGoodsid(gid);
-//		goods.setReatedate(new Date());
-//		goods.setStatus("0");
-//		goods.setSeetimes(0);
-//		goods.setUserid(user.getUserId());
-//		goodsMapper.insert(goods);
-//		//上传商品图片
-//		for(int i=0;i<cms.length;i++){
-//			System.out.println(cms.length+"cms.length");
-//			System.out.println(cms[i].getSize()+"size");
-//			if(cms[i].getSize() !=0){
-//				//保存图片并且保存到数据库
-//				goodspicture=new Goodspicture();
-//				String goodspic=UUID.randomUUID().toString().replace("-", "");
-//				goodspicture.setGoodspicture(goodspic);
-//				String pname=(cms[i].getOriginalFilename()).substring((cms[i].getOriginalFilename()).lastIndexOf("."));
-//				String picname=goodspic+pname;
-//				StringBuffer sa=request.getRequestURL();
-//				String sa2=sa.substring(0,sa.lastIndexOf("/"));
-//				String picurl=sa2.substring(0,sa2.lastIndexOf("/"));
-//				System.out.println(sa);
-//				System.out.println(picurl);
-//				System.out.println(picname);
-//				goods.setRequesturl(picurl+"/picture");
-//				goodspicture.setPictureurl(picname);
-//				String ddd=File.separator;
-//				String p1 = request.getSession().getServletContext().getRealPath(ddd);
-//				System.out.println(p1);
-//				String path=p1.substring(0,p1.lastIndexOf(ddd))+ddd+"picture";
-//				try {
-//					System.out.println(path+ddd+picname);
-//					cms[i].transferTo(new File(path+ddd+picname));
-//				} catch (IllegalStateException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				goodspicture.setGoodsid(gid);
-//				goodspictureMapper.insert(goodspicture);
-//
-//			}
-//		}
-//	}
+	@Resource
+	UserDao userDao;
+
+
+	private GoodsResult goodsResult;
+
+	private User user;
+
 
 	public List<Fathertype> fathertype() {
 		List<Fathertype> list= fathertypeDao.selectfathertype();
@@ -98,24 +55,27 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public int getCountGoods(String status) {
-		return 0;
+	public int getCountGoods(String name,
+							 String type,
+							 String userId,
+							 String status) {
+		try {
+			if(StringUtils.isEmpty(name)&&StringUtils.isEmpty(type)&&StringUtils.isEmpty(userId)) {
+				return goodsDao.findGoodsNumber(status);
+			}else if(StringUtils.isNotEmpty(name)){
+				return  goodsDao.searchGoodsNumber(status,name);
+			}else if(StringUtils.isNotEmpty(type)){
+				return goodsDao.findGoodsNumberByGoodsType(status,type);
+			}else if(StringUtils.isNotEmpty(userId)){
+				return goodsDao.findGoodsNumberByUserId(status,userId);
+			}else{
+				return  0;
+			}
+		} catch (DataAccessException e) {
+		    throw new RuntimeException("getCountGoods");
+		}
 	}
 
-	@Override
-	public int getCountGoodsByUserId(String status, String userId) {
-		return 0;
-	}
-
-	@Override
-	public int getCountGoodsByGoodsType(String status, String goodstype) {
-		return 0;
-	}
-
-	@Override
-	public int getCountGoodsBySearch(String status, String goodsname) {
-		return 0;
-	}
 	@Override
 	public 	void releaseGoods(String userId,
 								String goodsname,
@@ -145,6 +105,7 @@ public class GoodsServiceImpl implements GoodsService {
 		goods.setPlace(place);
 		goods.setSeetimes(0);
 		goods.setPublishtimes(1);
+		goods.setStatus(CommonStatus.STATUS_IN.getCode());
 		goodsDao.insertGoods(goods);
 		for(int i=0;i<goodspicList.size();i++){
 				//保存图片并且保存到数据库
@@ -155,6 +116,61 @@ public class GoodsServiceImpl implements GoodsService {
 				goodspictureDao.insert(goodspicture);
 			}
 		}
+
+
+
+	@Override
+	public List<GoodsResult> getGoodsListPage( Integer startPage,
+											   Integer pageSize,
+											   String name,
+											   String type,
+											   String userId,
+											   String status) {
+		int size=startPage*pageSize;
+		List<Goods> goodsList = new ArrayList<>();
+		try {
+			if(StringUtils.isNotEmpty(name)){
+				goodsList=goodsDao.searchGoods(status,name,size,pageSize);
+			}else if(StringUtils.isNotEmpty(type)){
+				goodsList=goodsDao.selectByGoodsType(type,status,size,pageSize);
+			}else if(StringUtils.isNotEmpty(userId)){
+				goodsList=goodsDao.selectByUserId(userId,status,size,pageSize);
+			}else if(StringUtils.isEmpty(name)&&StringUtils.isEmpty(type)&&StringUtils.isEmpty(userId)) {
+				goodsList = goodsDao.findGoodsByLImit(CommonStatus.STATUS_IN.getCode(), size, pageSize);
+			}
+			if(CollectionUtils.isNotEmpty(goodsList)){
+				return  this.GoodsToResultList(goodsList);
+			}else{
+				return  null;
+			}
+		} catch (DataAccessException e) {
+		    throw new RuntimeException("getGoodsList");
+		}
+	}
+
+	@Override
+	public GoodsResult GoodsToResult(Goods goods) {
+		goodsResult=new GoodsResult();
+		BeanUtils.copyProperties(goods,goodsResult);
+		user=userDao.selectByPrimaryKey(goods.getUserid());
+		List<Goodspicture> goodspictureList=goodspictureDao.selectByGoodsId(goods.getGoodsid());
+		for(Goodspicture g:goodspictureList){
+			g.setPictureurl("http://47.93.99.237:8080/market-api/picture/"+g.getPictureurl());
+		}
+		goodsResult.setUsername(user.getUserName());
+		goodsResult.setCredit(user.getCredit());
+		goodsResult.setGoodspicture(goodspictureList);
+		return goodsResult;
+	}
+
+	@Override
+	public List<GoodsResult> GoodsToResultList(List<Goods> goodsList) {
+		List<GoodsResult> list=new ArrayList<>();
+		for(Goods g:goodsList){
+			list.add(this.GoodsToResult(g));
+		}
+		return list;
+	}
 
 //	public List<GoodsMore> allGoods(String status, Integer startPage,
 //			Integer pageSize,HttpServletRequest request) {

@@ -64,4 +64,8 @@ public class GoodsDao {
        return  goodsMapper.searchGoodsNumber(status, goodsname);
     }
 
+    public  Goods getGoodsById(String goodsid){
+        return  goodsMapper.selectByPrimaryKey(goodsid);
+    }
+
 }

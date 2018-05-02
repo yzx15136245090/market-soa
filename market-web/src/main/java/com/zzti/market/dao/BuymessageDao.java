@@ -5,6 +5,7 @@ import com.zzti.market.mapper.BuymessageMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @Title:
@@ -20,9 +21,28 @@ import javax.annotation.Resource;
  */
 @Repository
 public class BuymessageDao {
+
     @Resource
     BuymessageMapper buymessageMapper;
+
     public int insert(Buymessage buymessage){
        return buymessageMapper.insert(buymessage);
     }
+
+    public List<Buymessage>  getBuymessagePage(Integer status, Integer startPage, Integer pageSize){
+        return  buymessageMapper.findBuymessageByLImit(status,startPage,pageSize);
+    }
+
+    public int getCountByStatus(Integer status){
+        return  buymessageMapper.findBuymessageNumber(status);
+    }
+
+    public List<Buymessage>  getBuymessageByUserId(Integer status, Integer startPage, Integer pageSize,String userid){
+        return  buymessageMapper.findBuymessageByUserId(status,startPage,pageSize,userid);
+    }
+    public int getCountByStatusAndUserId(Integer status,String userid){
+        return  buymessageMapper.findBuymessageNumberByUserId(status,userid);
+    }
+
+
 }

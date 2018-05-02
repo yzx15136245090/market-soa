@@ -149,13 +149,22 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
+	public List<GoodsResult> getGoodsListByIdList(List<String> goodsidList) {
+		List<Goods> list=new ArrayList<>();
+		for(String id:goodsidList){
+			list.add(goodsDao.getGoodsById(id));
+		}
+		return this.GoodsToResultList(list);
+	}
+
+	@Override
 	public GoodsResult GoodsToResult(Goods goods) {
 		goodsResult=new GoodsResult();
 		BeanUtils.copyProperties(goods,goodsResult);
 		user=userDao.selectByPrimaryKey(goods.getUserid());
 		List<Goodspicture> goodspictureList=goodspictureDao.selectByGoodsId(goods.getGoodsid());
 		for(Goodspicture g:goodspictureList){
-			g.setPictureurl("http://47.93.99.237:8080/market-api/picture/"+g.getPictureurl());
+			g.setPictureurl("http://47.93.99.237:8080/picture/"+g.getPictureurl());
 		}
 		goodsResult.setUsername(user.getUserName());
 		goodsResult.setCredit(user.getCredit());

@@ -149,7 +149,7 @@
     select 
     <include refid="Base_Column_List" />
     from buymessage
-    where Buystatus=#{buystatus,jdbcType=INTEGER}
+    where Buystatus=#{buystatus,jdbcType=INTEGER} order by creatdate desc
     LIMIT #{startPage}, #{pageSize}
   </select>
   <select id="findBuymessageNumber" resultType="int" parameterType="int" >
@@ -157,6 +157,22 @@
     count(buymessageid)
     from buymessage
     where Buystatus= #{buystatus,jdbcType=INTEGER}
+  </select>
+
+  <select id="findBuymessageByUserId" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from buymessage
+    where Buystatus=#{buystatus,jdbcType=INTEGER} and  UserId = #{userid,jdbcType=VARCHAR}
+    order by creatdate desc
+    LIMIT #{startPage}, #{pageSize}
+  </select>
+
+  <select id="findBuymessageNumberByUserId" resultType="int" parameterType="int" >
+    select
+    count(buymessageid)
+    from buymessage
+    where Buystatus= #{buystatus,jdbcType=INTEGER} and UserId = #{userid,jdbcType=VARCHAR}
   </select>
  
 </mapper>

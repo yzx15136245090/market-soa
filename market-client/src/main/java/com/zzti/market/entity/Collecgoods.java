@@ -10,6 +10,8 @@ public class Collecgoods implements Serializable {
 
     private String goodsid;
 
+    private String type;
+
     public String getUserid() {
         return userid;
     }
@@ -32,5 +34,13 @@ public class Collecgoods implements Serializable {
 
     public void setGoodsid(String goodsid) {
         this.goodsid = goodsid == null ? null : goodsid.trim();
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

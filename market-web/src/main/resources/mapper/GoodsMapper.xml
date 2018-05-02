@@ -33,6 +33,7 @@
     <include refid="Base_Column_List" />
     from goods
     where GoodsName like  "%"#{goodsname}"%" and Status= #{status,jdbcType=VARCHAR}
+    order by reatedate desc
     LIMIT #{startPage}, #{pageSize}
   </select>
   <select id="selectByUser" resultMap="BaseResultMap" >
@@ -46,6 +47,7 @@
     <include refid="Base_Column_List" />
     from goods
     where Status= #{status,jdbcType=VARCHAR} and UserId=#{userid,jdbcType=VARCHAR}
+     order by reatedate desc
     LIMIT #{startPage}, #{pageSize}
   </select>
   <select id="selectByGoodsType" resultMap="BaseResultMap" >
@@ -53,6 +55,7 @@
     <include refid="Base_Column_List" />
     from goods
     where Status= #{status,jdbcType=VARCHAR} and GoodsType=#{goodstype,jdbcType=VARCHAR}
+    order by reatedate desc
     LIMIT #{startPage}, #{pageSize}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
@@ -276,6 +279,7 @@
     select 
     <include refid="Base_Column_List" />
     from goods
+
     where Status= #{status,jdbcType=VARCHAR}
     LIMIT #{startPage}, #{pageSize}
   </select>

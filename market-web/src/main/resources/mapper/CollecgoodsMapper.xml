@@ -5,20 +5,22 @@
     <result column="UserId" property="userid" jdbcType="VARCHAR" />
     <result column="CollectDate" property="collectdate" jdbcType="TIMESTAMP" />
     <result column="GoodsId" property="goodsid" jdbcType="VARCHAR" />
+    <result column="Type" property="type" jdbcType="VARCHAR" />
   </resultMap>
   
   <select id="myCollect" resultMap="BaseResultMap" >
     select 
     *
     from collecgoods
-    where  UserId=#{userid,jdbcType=VARCHAR}
+    where  UserId=#{userid,jdbcType=VARCHAR} and Type=#{type,jdbcType=VARCHAR}
+    order by collectdate desc
     LIMIT #{startPage}, #{pageSize}
   </select>
    <select id="findCollecNumber" resultType="int" parameterType="java.lang.String" >
     select 
     count(goodsid)
     from collecgoods
-    where  UserId=#{userid,jdbcType=VARCHAR}
+    where  UserId=#{userid,jdbcType=VARCHAR} and Type=#{type,jdbcType=VARCHAR}
   </select>
   <select id="weatherCollect" resultType="int" parameterType="java.lang.String" >
     select 
@@ -27,9 +29,10 @@
     where  UserId=#{userid,jdbcType=VARCHAR} and GoodsId=#{goodsid,jdbcType=VARCHAR}
   </select>
   <insert id="insert" parameterType="com.zzti.market.entity.Collecgoods" >
-    insert into collecgoods (UserId, CollectDate, GoodsId
+    insert into collecgoods (UserId, CollectDate, GoodsId,Type
       )
-    values (#{userid,jdbcType=VARCHAR}, #{collectdate,jdbcType=TIMESTAMP}, #{goodsid,jdbcType=VARCHAR}
+    values (#{userid,jdbcType=VARCHAR}, #{collectdate,jdbcType=TIMESTAMP}, #{goodsid,jdbcType=VARCHAR},
+    #{type,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.zzti.market.entity.Collecgoods" >
@@ -57,4 +60,9 @@
       </if>
     </trim>
   </insert>
+
+  <delete id="delete" parameterType="java.lang.String" >
+    delete from collecgoods
+    where GoodsId = #{goodsid,jdbcType=VARCHAR} and UserId=#{userid,jdbcType=VARCHAR} and Type=#{type,jdbcType=VARCHAR}
+  </delete>
 </mapper>

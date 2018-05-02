@@ -47,6 +47,8 @@ public interface GoodsService {
 									   String userId,
 									   String status);
 
+	List<GoodsResult> getGoodsListByIdList(List<String> goodsidList);
+
 	GoodsResult GoodsToResult(Goods goods);
 
 	List<GoodsResult> GoodsToResultList(List<Goods> goodsList);

@@ -26,5 +26,4 @@ public interface GoodsMapper {
     List<Goods> findGoodsByLImit ( @Param("status") String status, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
     List<Goods> searchGoods ( @Param("status") String status, @Param("goodsname") String goodsname, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
     int searchGoodsNumber ( @Param("status") String status,  @Param("goodsname") String goodsname );
-
 }

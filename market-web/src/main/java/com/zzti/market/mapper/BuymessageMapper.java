@@ -20,4 +20,9 @@ public interface BuymessageMapper {
     int updateByPrimaryKey ( Buymessage record );
     List<Buymessage> allMessage ( int buystatus );
     List<Buymessage> findBuymessageByLImit ( @Param("buystatus") int buystatus, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize );
+
+    List<Buymessage> findBuymessageByUserId ( @Param("buystatus") int buystatus, @Param("startPage") Integer startPage, @Param("pageSize") Integer pageSize,@Param("userid") String userid);
+    int findBuymessageNumberByUserId( @Param("buystatus") int buystatus,@Param("userid")String userid);
+
+
 }

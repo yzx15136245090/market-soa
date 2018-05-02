@@ -9,7 +9,14 @@ import java.util.List;
 
 public interface BuymessageService {
 	int ReleaseBuymessage (String userId,String  buygoodsname,String buygoodsdescrip,Integer wantprice,String wantsite,Integer buyindate);
-//	List<Buymessage> allBuymessage ( int buystatus, Integer startPage, Integer pageSize );
+
+	List<Buymessage>  getBuymessage(String userid,Integer startPage, Integer pageSize,Integer buystatus);
+
+	int getCountBuymessage(String userid,Integer buystatus);
+
+
+
+	//	List<Buymessage> allBuymessage ( int buystatus, Integer startPage, Integer pageSize );
 //	List<Buymessage> allBuymessage ( int buystatus );
 //	int findBuymessageNumber ( int buystatus );
 }
